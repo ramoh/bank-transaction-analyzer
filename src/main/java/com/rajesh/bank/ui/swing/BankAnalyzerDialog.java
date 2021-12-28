@@ -109,8 +109,11 @@ public class BankAnalyzerDialog implements BankAnalyzerView {
 
     private Component wrapComponents(Component... c) {
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.X_AXIS);
+
+        panel.setLayout(boxLayout);
         for (Component item : c) {
+
             panel.add(item);
         }
         return panel;
@@ -238,7 +241,6 @@ public class BankAnalyzerDialog implements BankAnalyzerView {
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         jfc.setDialogTitle("Select the bank's CSV file");
         jfc.setAcceptAllFileFilterUsed(false);
-
         FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV files", "csv");
         jfc.addChoosableFileFilter(filter);
 
