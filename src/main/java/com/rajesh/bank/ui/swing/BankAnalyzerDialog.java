@@ -12,7 +12,6 @@ import java.time.Month;
 import java.util.Collections;
 import java.util.List;
 
-import javax.lang.model.util.ElementScanner14;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -250,9 +249,11 @@ public class BankAnalyzerDialog implements BankAnalyzerView {
 
     @Override
     public void uploadFile() {
-        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        JFileChooser jfc = new JFileChooser();
+        jfc.setCurrentDirectory(new File("/Users/rajesmoh/Rajesh/Bank/HDFC"));;
         jfc.setDialogTitle("Select the bank's CSV file");
         jfc.setAcceptAllFileFilterUsed(false);
+        jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV files", "csv");
         jfc.addChoosableFileFilter(filter);
 
