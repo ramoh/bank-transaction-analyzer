@@ -11,11 +11,13 @@ public class BankTransactionValidator {
     private final String description;
     private final String date;
     private final String amount;
+    private final String balance;
 
-    public BankTransactionValidator(String description, String date, String amount) {
+    public BankTransactionValidator(String description, String date, String amount,String balance) {
         this.description = Objects.requireNonNull(description.trim());
         this.date = Objects.requireNonNull(date.trim());
         this.amount = Objects.requireNonNull(amount.trim());
+        this.balance = Objects.requireNonNull(balance.trim());
     }
 
     public Notification validate() {
@@ -36,6 +38,12 @@ public class BankTransactionValidator {
 
         try {
             Double.parseDouble(this.amount);
+        } catch (NumberFormatException e) {
+            notification.addError("Invalid format for amount: '" + this.amount + "'");
+        }
+
+        try {
+            Double.parseDouble(this.balance);
         } catch (NumberFormatException e) {
             notification.addError("Invalid format for amount: '" + this.amount + "'");
         }

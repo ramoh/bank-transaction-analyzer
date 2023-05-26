@@ -14,7 +14,7 @@ public class BankStatementCSVParser implements BankStatementParser {
         final String[] columns = line.split(",");
         final boolean credit = Double.parseDouble(columns[4]) > 0.00 ? true : false;
         BankTransactionValidator validator = new BankTransactionValidator(columns[1], columns[0],
-                credit ? columns[4] : columns[3]);
+                credit ? columns[4] : columns[3],columns[6]);
         Notification notification = validator.validate();
         if (notification.hasError()) {
             throw new IllegalStateException(notification.errorMessage());
@@ -22,7 +22,8 @@ public class BankStatementCSVParser implements BankStatementParser {
         final double amount = credit ? Double.parseDouble(columns[4]) : Double.parseDouble(columns[3]) * -1;
         final String description = columns[1].trim();
         final LocalDate date = LocalDate.parse(columns[0].trim(), DATE_PATTERN);
-        return new BankTransaction(date, amount, description);
+        final double balance = Double.parseDouble(columns[6]);
+        return new BankTransaction(date, amount, description,balance);
     }
 
     @Override

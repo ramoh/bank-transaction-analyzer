@@ -19,7 +19,7 @@ public class BankStatementCSVParserTest {
         final BankTransaction result = statementParser.parseFrom(line);
 
         final BankTransaction expected = new BankTransaction(LocalDate.of(2021, Month.NOVEMBER, 01), -10.00,
-                "UPI-JAGDAMBA MEDICALS-9900420080-1@OKBIZAXIS-UTIB0000000-130541242490-NA");
+                "UPI-JAGDAMBA MEDICALS-9900420080-1@OKBIZAXIS-UTIB0000000-130541242490-NA",200.3);
         final double tolerance = 0.0d;
 
         Assert.assertEquals(expected.getDate(), result.getDate());

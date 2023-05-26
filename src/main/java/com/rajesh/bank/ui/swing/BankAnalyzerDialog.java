@@ -12,6 +12,7 @@ import java.time.Month;
 import java.util.Collections;
 import java.util.List;
 
+import javax.lang.model.util.ElementScanner14;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -127,8 +128,15 @@ public class BankAnalyzerDialog implements BankAnalyzerView {
                 Component c = super.prepareRenderer(renderer, row, column);
                 // Alternate row color
                 double amount = (double) getModel().getValueAt(row, 2);
-                if (!isRowSelected(row))
+                if (!isRowSelected(row)) {
                     c.setBackground(amount < 0 ? getBackground() : Color.green);
+                    if (amount > 0)
+                        c.setBackground(new Color(102, 255, 102));
+                    else if (amount < -1500)
+                        c.setBackground(new Color(255, 102, 102));
+                    else
+                        c.setBackground(getBackground());
+                }
 
                 return c;
             }
@@ -176,9 +184,11 @@ public class BankAnalyzerDialog implements BankAnalyzerView {
 
     private void refreshTable(JTable table) {
         table.getColumnModel().getColumn(0).setPreferredWidth(200);
-        table.getColumnModel().getColumn(1).setPreferredWidth(1400);
+        table.getColumnModel().getColumn(1).setPreferredWidth(1200);
         table.getColumnModel().getColumn(2).setPreferredWidth(200);
-        table.getColumnModel().getColumn(2).setCellRenderer(new DefaultTableCellRenderer() {
+        table.getColumnModel().getColumn(3).setPreferredWidth(200);
+
+        DefaultTableCellRenderer amountRender = new DefaultTableCellRenderer() {
 
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
@@ -189,7 +199,9 @@ public class BankAnalyzerDialog implements BankAnalyzerView {
                 return c;
             }
 
-        });
+        };
+        table.getColumnModel().getColumn(2).setCellRenderer(amountRender);
+        table.getColumnModel().getColumn(3).setCellRenderer(amountRender);
         DefaultTableCellRenderer cellRenderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.getColumnModel().getColumn(2).setHeaderRenderer(cellRenderer);

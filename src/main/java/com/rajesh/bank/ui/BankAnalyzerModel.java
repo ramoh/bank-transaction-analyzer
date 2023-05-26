@@ -51,7 +51,7 @@ public class BankAnalyzerModel implements BankAnalyzerController {
         try {
             final List<String> lines = Files.readAllLines(path);
             final BankStatementParser parser = new BankStatementCSVParser();
-            final List<BankTransaction> bankTransactions = parser.parseLinesFrom(lines);
+            final List<BankTransaction> bankTransactions = parser.parseLinesFrom( lines.subList(2,lines.size()-1));
             this.bankStatementProcessor = new BankStatementProcessor(bankTransactions);
             result.addAll(bankTransactions);
         } catch (IOException e) {

@@ -9,7 +9,7 @@ import com.rajesh.bank.core.BankTransaction;
 class BankTransactionTableModel extends AbstractTableModel {
     private static final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("dd MMM uuuu");
     private final BankTransaction[] bankTransactions;
-    private String[] columnNames = new String[] { "Date", "Description", "Amount" };
+    private String[] columnNames = new String[] { "Date", "Description", "Amount","Balance" };
 
     public BankTransactionTableModel(BankTransaction[] bankTransactions) {
         this.bankTransactions = bankTransactions;
@@ -39,6 +39,8 @@ class BankTransactionTableModel extends AbstractTableModel {
                 return this.bankTransactions[row].getDescription();
             case 2:
                 return this.bankTransactions[row].getAmount();
+            case 3:
+                return this.bankTransactions[row].getBalance();    
             default:
                 return null;
         }
